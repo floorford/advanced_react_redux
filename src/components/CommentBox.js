@@ -11,7 +11,7 @@ class CommentBox extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ comment: e.currentTarget.value });
+    this.setState({ comment: e.target.value });
   }
 
   handleSubmit(e) {
