@@ -19,6 +19,7 @@ beforeEach(() => {
   // keyword insinuates comp that has additional functionality on top
   wrapped = shallow(<App />);
 });
+// this beforeEach only applies to test in THIS file, not in the project
 
 it("shows a comment box", () => {
   // expect = global function
