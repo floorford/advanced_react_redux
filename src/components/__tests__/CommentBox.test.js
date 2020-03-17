@@ -2,12 +2,17 @@ import React from "react";
 import { mount } from "enzyme";
 // mount (full DOM) uses JSDOM in terminal so have to do clean up!
 
+import Root from "Root.js";
 import CommentBox from "components/CommentBox.js";
 
 let wrapped;
 
 beforeEach(() => {
-  wrapped = mount(<CommentBox />);
+  wrapped = mount(
+    <Root>
+      <CommentBox />
+    </Root>
+  );
 });
 
 afterEach(() => {

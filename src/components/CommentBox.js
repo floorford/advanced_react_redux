@@ -1,4 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
+
+import * as actions from "actions";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -17,8 +20,7 @@ class CommentBox extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    // TODO - call action creater
-    // save comment
+    this.props.saveComment(this.state.comment);
 
     this.setState({ comment: "" });
   }
@@ -36,4 +38,8 @@ class CommentBox extends React.Component {
   }
 }
 
-export default CommentBox;
+// null cos doesn't need any state as props
+export default connect(null, actions)(CommentBox);
+
+// as soon as we use the connect function it looks up the hierarchy for the provider tag
+// with jest because we're creating a comment box instance but no store it breaks unless we account for that too
