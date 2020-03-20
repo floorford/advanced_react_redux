@@ -18,3 +18,6 @@ const App = () => {
 };
 
 export default App;
+
+// https://jsonplaceholder.typicode.com/
+// API data faker we are using
