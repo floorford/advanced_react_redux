@@ -1,4 +1,7 @@
 import React from "react";
+import { Route, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "actions";
 
 import CommentList from "components/CommentList.js";
 import CommentBox from "components/CommentBox.js";
@@ -8,16 +11,49 @@ import CommentBox from "components/CommentBox.js";
 // See also the official docs:
 // https://facebook.github.io/create-react-app/docs/importing-a-component#absolute-imports
 
-const App = () => {
-  return (
-    <div>
-      <CommentBox />
-      <CommentList />
-    </div>
-  );
-};
+class App extends React.Component {
+  renderButton() {
+    if (this.props.auth) {
+      return (
+        <button onClick={() => this.props.changeAuth(false)}>Sign Out</button>
+      );
+    } else {
+      return (
+        <button onClick={() => this.props.changeAuth(true)}>Sign In</button>
+      );
+    }
+  }
 
-export default App;
+  renderHeader() {
+    return (
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/post">Post a Comment</Link>
+        </li>
+        <li>{this.renderButton()}</li>
+      </ul>
+    );
+  }
+
+  render() {
+    return (
+      <div>
+        {this.renderHeader()}
+        <Route path="/" exact component={CommentList} />
+        <Route path="/post" component={CommentBox} />
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
+export default connect(mapStateToProps, actions)(App);
 
 // https://jsonplaceholder.typicode.com/
 // API data faker we are using

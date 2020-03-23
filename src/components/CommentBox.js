@@ -13,6 +13,20 @@ class CommentBox extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.shouldNavigateAway();
+  }
+
+  componentDidUpdate() {
+    this.shouldNavigateAway();
+  }
+
+  shouldNavigateAway() {
+    if (!this.props.auth) {
+      this.props.history.push("/");
+    }
+  }
+
   handleChange(e) {
     this.setState({ comment: e.target.value });
   }
@@ -44,8 +58,12 @@ class CommentBox extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return { auth: state.auth };
+}
+
 // null cos doesn't need any state as props
-export default connect(null, actions)(CommentBox);
+export default connect(mapStateToProps, actions)(CommentBox);
 
 // as soon as we use the connect function it looks up the hierarchy for the provider tag
 // with jest because we're creating a comment box instance but no store it breaks unless we account for that too
