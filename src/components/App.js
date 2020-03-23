@@ -21,3 +21,6 @@ export default App;
 
 // https://jsonplaceholder.typicode.com/
 // API data faker we are using
+
+// unit test - touching one piece of our app - atomic testing
+// integration test - touching a workflow of our app
