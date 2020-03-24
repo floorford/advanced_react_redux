@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import * as actions from "actions";
+import requireAuth from "components/requireAuth";
 
 class CommentBox extends React.Component {
   constructor(props) {
@@ -11,20 +12,6 @@ class CommentBox extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  componentDidMount() {
-    this.shouldNavigateAway();
-  }
-
-  componentDidUpdate() {
-    this.shouldNavigateAway();
-  }
-
-  shouldNavigateAway() {
-    if (!this.props.auth) {
-      this.props.history.push("/");
-    }
   }
 
   handleChange(e) {
@@ -58,12 +45,7 @@ class CommentBox extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return { auth: state.auth };
-}
-
-// null cos doesn't need any state as props
-export default connect(mapStateToProps, actions)(CommentBox);
+export default connect(null, actions)(requireAuth(CommentBox));
 
 // as soon as we use the connect function it looks up the hierarchy for the provider tag
 // with jest because we're creating a comment box instance but no store it breaks unless we account for that too
